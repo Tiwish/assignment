@@ -1,7 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useToast } from "@/hooks/use-toast";
 
 const Header = () => {
+  const { toast } = useToast();
+
+  const handleLogin = () => {
+    toast({
+      title: "Login",
+      description: "Login functionality coming soon!",
+    });
+  };
+
+  const handleRegister = () => {
+    toast({
+      title: "Register",
+      description: "Registration functionality coming soon!",
+    });
+  };
+
   return (
     <header className="w-full bg-background border-b border-border sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,10 +53,10 @@ const Header = () => {
           {/* Auth Buttons */}
           <div className="flex items-center space-x-4">
             <ThemeToggle />
-            <Button variant="ghost" className="font-outfit">
+            <Button variant="ghost" className="font-outfit" onClick={handleLogin}>
               Login
             </Button>
-            <Button className="bg-primary hover:bg-brand-purple-dark font-outfit">
+            <Button className="bg-primary hover:bg-brand-purple-dark font-outfit" onClick={handleRegister}>
               Register
             </Button>
           </div>
@@ -58,4 +75,4 @@ const Header = () => {
   );
 };
 
-export default Header
+export default Header;

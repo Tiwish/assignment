@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, MapPin, Building2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const HeroSection = () => {
+  const { toast } = useToast();
+  
   const suggestedKeywords = [
     "Full Stack Developer",
     "Back-end Developer", 
@@ -82,6 +85,7 @@ const HeroSection = () => {
             
             <Button 
               className="w-full md:w-auto mt-6 bg-primary hover:bg-brand-purple-dark h-12 px-8 font-outfit font-medium"
+              onClick={() => toast({ title: "Search", description: "Job search functionality coming soon!" })}
             >
               Browse Jobs
             </Button>
@@ -89,10 +93,10 @@ const HeroSection = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button className="bg-primary hover:bg-brand-purple-dark font-outfit">
+            <Button className="bg-primary hover:bg-brand-purple-dark font-outfit" onClick={() => toast({ title: "Browse Jobs", description: "Job browsing functionality coming soon!" })}>
               Browse Jobs
             </Button>
-            <Button variant="outline" className="font-outfit border-primary text-primary hover:bg-primary hover:text-white">
+            <Button variant="outline" className="font-outfit border-primary text-primary hover:bg-primary hover:text-white" onClick={() => toast({ title: "How It Works", description: "Tutorial coming soon!" })}>
               How It Works?
             </Button>
           </div>
@@ -107,6 +111,7 @@ const HeroSection = () => {
                   variant="outline"
                   size="sm"
                   className="rounded-full border-border hover:border-primary hover:text-primary font-outfit"
+                  onClick={() => toast({ title: "Search", description: `Searching for ${keyword} jobs...` })}
                 >
                   {keyword}
                 </Button>
