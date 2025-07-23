@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, MapPin, Building2 } from "lucide-react";
@@ -5,6 +7,10 @@ import { useToast } from "@/hooks/use-toast";
 
 const HeroSection = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const [jobTitle, setJobTitle] = useState("");
+  const [location, setLocation] = useState("");
+  const [company, setCompany] = useState("");
   
   const suggestedKeywords = [
     "Full Stack Developer",
@@ -15,6 +21,19 @@ const HeroSection = () => {
     "Employer Branding Associate",
     "Lead DevOps Engineer"
   ];
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (jobTitle) params.set("title", jobTitle);
+    if (location) params.set("location", location);
+    if (company) params.set("company", company);
+    
+    navigate(`/jobs?${params.toString()}`);
+  };
+
+  const handleBrowseJobs = () => {
+    navigate("/jobs");
+  };
 
   return (
     <section className="relative py-20 bg-gradient-hero">
@@ -52,6 +71,8 @@ const HeroSection = () => {
                   <Input 
                     placeholder="Job title or keyword"
                     className="pl-10 h-12 border-border"
+                    value={jobTitle}
+                    onChange={(e) => setJobTitle(e.target.value)}
                   />
                 </div>
               </div>
@@ -65,6 +86,8 @@ const HeroSection = () => {
                   <Input 
                     placeholder="Your Location"
                     className="pl-10 h-12 border-border"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
                   />
                 </div>
               </div>
@@ -78,22 +101,24 @@ const HeroSection = () => {
                   <Input 
                     placeholder="Company"
                     className="pl-10 h-12 border-border"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
                   />
                 </div>
               </div>
             </div>
             
             <Button 
-              className="w-full md:w-auto mt-6 bg-primary hover:bg-brand-purple-dark h-12 px-8 font-outfit font-medium"
-              onClick={() => toast({ title: "Search", description: "Job search functionality coming soon!" })}
+              className="w-full md:w-auto mt-6 bg-primary hover:bg-primary/90 h-12 px-8 font-outfit font-medium"
+              onClick={handleSearch}
             >
-              Browse Jobs
+              Search Jobs
             </Button>
           </div>
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button className="bg-primary hover:bg-brand-purple-dark font-outfit" onClick={() => toast({ title: "Browse Jobs", description: "Job browsing functionality coming soon!" })}>
+            <Button className="bg-primary hover:bg-primary/90 font-outfit" onClick={handleBrowseJobs}>
               Browse Jobs
             </Button>
             <Button variant="outline" className="font-outfit border-primary text-primary hover:bg-primary hover:text-white" onClick={() => toast({ title: "How It Works", description: "Tutorial coming soon!" })}>
@@ -111,7 +136,10 @@ const HeroSection = () => {
                   variant="outline"
                   size="sm"
                   className="rounded-full border-border hover:border-primary hover:text-primary font-outfit"
-                  onClick={() => toast({ title: "Search", description: `Searching for ${keyword} jobs...` })}
+                  onClick={() => {
+                    setJobTitle(keyword);
+                    handleSearch();
+                  }}
                 >
                   {keyword}
                 </Button>

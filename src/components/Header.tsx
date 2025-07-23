@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { toast } = useToast();
@@ -33,15 +34,15 @@ const Header = () => {
 
           {/* Navigation - Hidden on mobile */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-foreground hover:text-primary transition-colors font-outfit">
+            <Link to="/" className="text-foreground hover:text-primary transition-colors font-outfit">
               Home
-            </a>
+            </Link>
             <a href="#" className="text-foreground hover:text-primary transition-colors font-outfit">
               About
             </a>
-            <a href="#" className="text-foreground hover:text-primary transition-colors font-outfit">
+            <Link to="/jobs" className="text-foreground hover:text-primary transition-colors font-outfit">
               Jobs
-            </a>
+            </Link>
             <a href="#" className="text-foreground hover:text-primary transition-colors font-outfit">
               Services
             </a>
